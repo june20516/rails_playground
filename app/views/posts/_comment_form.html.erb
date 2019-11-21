@@ -1,0 +1,47 @@
+<p><strong>comments</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>Content</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  
+  <% post.comments.each do |comment| %>
+    <tr>
+      <td><%= comment.name %></td>
+      <td><%= comment.content %></td>
+      <td><%= link_to 'Edit', post_comment_path(post.id, comment.id), method: :put %></td>
+      <td><%= link_to 'Destroy', post_comment_path(post.id, comment.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td>name</td>
+      <td>content<td>
+    </tr>
+    <tr>
+      <!--<%= form_tag "/posts/#{post.id}/comments" do%>
+      <td><input type='text' name='name'></td>
+      <td><input type='text' name='content'></td>
+      <td><input type='submit'></td>
+      <% end %>-->
+    <%= form_with model: @Comment, url: post_comments_path(post.id), local: true do |form| %>
+      <td class="field">
+        <%= form.text_field :name %>
+      </td>
+      <td class="field">
+        <%= form.text_area :content %>
+      </td>
+      <td class="actions">
+        <%= form.submit %>
+      </td>
+    <% end %>
+    </tr>
+  </tfoot>
+</table>
